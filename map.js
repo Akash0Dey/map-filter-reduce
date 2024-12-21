@@ -1,15 +1,16 @@
 // squares of [1, 2, 3] => [1, 4, 9]
-const square = function (number) { return Math.pow(number, 2) }
+const square = function (number) { return Math.pow(number, 2); }
 
-const squaresOf = function (numbers) { return numbers.map(square) }
+const squaresOf = function (numbers) { return numbers.map(square); }
 
 // lengths of ["apple", "banana", "kiwi"] => [5, 6, 4]
-const stringLength = function (string) { return string.length }
+const stringLength = function (string) { return string.length; }
 
-const lengthsOf = function (strings) { return strings.map(stringLength) }
+const lengthsOf = function (strings) { return strings.map(stringLength); }
 
 // uppercase of ["hello", "world"] => ["HELLO", "WORLD"]
-const uppercaseOf = function (strings) { };
+const uppercase = function (string) { return string.toUpperCase(); }
+const uppercaseOf = function (strings) { return strings.map(uppercase); }
 
 // first characters of ["apple", "banana", "kiwi"] => ["a", "b", "k"]
 const firstCharactersOf = function (strings) { };
@@ -394,6 +395,8 @@ const testAll1 = function () {
     ['name', 'parameter', 'expected', 'actual', 'isPassed'],
     testArray('squaresOf', squaresOf, [1, 4, 9], [1, 2, 3]),
     testArray('lengthsOf', lengthsOf, [5, 6, 4], ["apple", "banana", "kiwi"]),
+    testArray('upuppercaseOf',uppercaseOf, ["HELLO", "WORLD"],
+    ["hello", "world"]),
   ];
 
   console.table(result);
