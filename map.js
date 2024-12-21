@@ -1,8 +1,12 @@
 // squares of [1, 2, 3] => [1, 4, 9]
-const squaresOf = function (numbers) { };
+const square = function (number) { return Math.pow(number, 2) }
+
+const squaresOf = function (numbers) { return numbers.map(square) }
 
 // lengths of ["apple", "banana", "kiwi"] => [5, 6, 4]
-const lengthsOf = function (strings) { };
+const stringLength = function (string) { return string.length }
+
+const lengthsOf = function (strings) { return strings.map(stringLength) }
 
 // uppercase of ["hello", "world"] => ["HELLO", "WORLD"]
 const uppercaseOf = function (strings) { };
@@ -373,3 +377,26 @@ const summarizeBookChapters = function (books) { };
 // [{name: "Concert", attendees: [{firstName: "John", lastName: "Doe"}, {firstName: "Jane", lastName: "Smith"}]}, {name: "Conference", attendees: [{firstName: "Bob", lastName: "Brown"}]}]
 // => [{name: "Concert", attendees: ["John Doe", "Jane Smith"]}, {name: "Conference", attendees: ["Bob Brown"]}]
 const getEventAttendees = function (events) { };
+
+function getMark(isPassed) {
+  return isPassed ? '✅' : '❌';
+}
+
+const testArray = function (name, func, expected, ...args) {
+  const actual = func(...args);
+  const isPassed = expected.join() === actual.join();
+
+  return [name, ...args, actual, expected, getMark(isPassed)];
+}
+
+const testAll1 = function () {
+  const result = [
+    ['name', 'parameter', 'expected', 'actual', 'isPassed'],
+    testArray('squaresOf', squaresOf, [1, 4, 9], [1, 2, 3]),
+    testArray('lengthsOf', lengthsOf, [5, 6, 4], ["apple", "banana", "kiwi"]),
+  ];
+
+  console.table(result);
+}
+
+testAll1();
