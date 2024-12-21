@@ -38,12 +38,16 @@ const checkSpecificAttribute = function (attribute, expectedValue) {
 
 const isPersonActive = checkSpecificAttribute('active', true);
 
-const filterActiveUsers = function (users) { 
+const filterActiveUsers = function (users) {
   return users.filter(isPersonActive);
 }
 
 // numbers greater than 10 [5, 12, 7, 18, 3] => [12, 18]
-function filterNumbersGreaterThanTen(numbers) { }
+const isGreaterThan10 = function (number) { return number > 10; }
+
+function filterNumbersGreaterThanTen(numbers) {
+  return numbers.filter(isGreaterThan10);
+}
 
 // books with more than 200 pages [{title: "Book 1", pages: 150}, {title: "Book 2", pages: 250}] => [{title: "Book 2", pages: 250}]
 const filterLongBooks = function (books) { };
@@ -381,17 +385,27 @@ const testArray = function (name, func, expected, ...args) {
   return [name, ...args, actual, expected, getMark(isPassed)];
 }
 
-const testAll = function () {
+const testAll1 = function () {
   const result = [
     ['name', 'parameter', 'expected', 'actual', 'isPassed'],
     testArray('filterEvenNumbers', filterEvenNumbers, [2, 4], [1, 2, 3, 4, 5]),
     testArray('filterLongWords', filterLongWords, ["banana"],
-      ["apple", "banana", "kiwi", "grape"]),
+    ["apple", "banana", "kiwi", "grape"]),
     testArray('filterAdults', filterAdults, [{ name: "Bob", age: 35 }], [{ name: "Alice", age: 25 }, { name: "Bob", age: 35 }]),
-    testArray('filterActiveUsers', filterActiveUsers, [{username: "alice", active: true}], [{username: "alice", active: true}, {username: "bob", active: false}])
+    testArray('filterActiveUsers', filterActiveUsers, [{ username: "alice", active: true }], [{ username: "alice", active: true }, { username: "bob", active: false }]),
+    testArray('filterNumbersGreaterThanTen', filterNumbersGreaterThanTen,
+    [12, 18], [5, 12, 7, 18, 3]),
   ];
 
   console.table(result);
 }
 
-testAll();
+const testAll2 = function () {
+  const result = [
+    ['name', 'parameter', 'expected', 'actual', 'isPassed'],
+  ];
+
+  console.table(result);
+}
+
+testAll1();
