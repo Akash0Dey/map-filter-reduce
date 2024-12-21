@@ -16,7 +16,8 @@ const firstCharactersOf = function (strings) { return strings.map(firstLetter) }
 
 // truth values of [0, 1, 2, 3] => [false, true, true, true]
 // Assume non-zero numbers are true, and zero is false
-const truthValuesOf = function (numbers) { };
+const isTrue = function (number) { return !(number === 0); }
+const truthValuesOf = function (numbers) { return numbers.map(isTrue) };
 
 // reverse strings of ["hello", "world"] => ["olleh", "dlrow"]
 const reversedStringsOf = function (strings) { };
@@ -398,6 +399,7 @@ const testAll1 = function () {
       ["hello", "world"]),
     testArray('firstfirstCharactersOf', firstCharactersOf, ['a', 'b', 'k'],
       ["apple", "banana", "kiwi"]),
+    testArray('truthValuesOf', truthValuesOf, [false, true, true], [0, 1, 2]),
   ];
 
   console.table(result);
