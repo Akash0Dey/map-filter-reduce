@@ -67,7 +67,13 @@ const joinedArraysOf = function (arrayOfArrays) {
 }
 
 // repeat strings in ["hi", "bye"] => ["hihi", "byebye"]
-const repeatedStringsOf = function (strings) { };
+const repeat = function (times) {
+  return function (string) {
+    return string.repeat(times);
+  }
+}
+
+const repeatedStringsOf = function (strings) { return strings.map(repeat(2)) };
 
 // count vowels in ["apple", "banana", "grape"] => [2, 3, 2]
 const countVowelsOf = function (strings) { };
@@ -454,6 +460,8 @@ const testAll3 = function () {
       ["goodbye", "moon"]], ["hello world", "goodbye moon"]), 
     testArray('joinedArraysOf', joinedArraysOf, ["ab", "cd"], 
       [["a", "b"], ["c", "d"]]), 
+    testArray('repearepeatedStringsOf',repeatedStringsOf, ["hihi", "byebye"],
+      ["hi", "bye"]), 
   ];
 
   console.table(result);
