@@ -672,7 +672,11 @@ const testAll7 = function () {
     test('isAdult', isAdult, [false, true],
       [{ name: "Alice", age: 17 }, { name: "Bob", age: 22 }]),
     test('abbreviations', abbreviations, ["NY, USA", "LA, USA"],
-      [{ city: "New York", country: "USA" }, { city: "Los Angeles", country: "USA" }]),
+      [{ city: "New York", country: "USA" }, 
+      { city: "Los Angeles", country: "USA" }]),
+    test('mathScores', mathScores, [90, 80],
+      [{ name: "Alice", scores: { math: 90, english: 85 } }, 
+      { name: "Bob", scores: { math: 80, english: 75 } }]),
 
   ];
 
