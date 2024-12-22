@@ -284,7 +284,10 @@ const cordinate = function (object) {
 const extractCoordinates = function (objects) { return objects.map(cordinate); }
 
 // extract full name and age from [{ firstName: "Alice", lastName: "Smith", age: 25 }, { firstName: "Bob", lastName: "Brown", age: 30 }] => [["Alice Smith", 25], ["Bob Brown", 30]]
-const fullNameAndAge = function (objects) { };
+const fullNameAge = function (object) {
+  return [names(object), extractAge(object)];
+}
+const fullNameAndAge = function (objects) { return objects.map(fullNameAge) };
 
 // extract scores from [{ name: "Alice", scores: { math: 90, english: 85 } }, { name: "Bob", scores: { math: 80, english: 75 } }] => [[90, 85], [80, 75]]
 const extractScores = function (objects) { };
@@ -672,10 +675,10 @@ const testAll7 = function () {
     test('isAdult', isAdult, [false, true],
       [{ name: "Alice", age: 17 }, { name: "Bob", age: 22 }]),
     test('abbreviations', abbreviations, ["NY, USA", "LA, USA"],
-      [{ city: "New York", country: "USA" }, 
+      [{ city: "New York", country: "USA" },
       { city: "Los Angeles", country: "USA" }]),
     test('mathScores', mathScores, [90, 80],
-      [{ name: "Alice", scores: { math: 90, english: 85 } }, 
+      [{ name: "Alice", scores: { math: 90, english: 85 } },
       { name: "Bob", scores: { math: 80, english: 75 } }]),
 
   ];
@@ -688,6 +691,9 @@ const testAll8 = function () {
     ['name', 'parameter', 'actual', 'expected', 'isPassed'],
     test('extractCoordinates', extractCoordinates, [[1, 2], [3, 4]],
       [{ x: 1, y: 2 }, { x: 3, y: 4 }]),
+    test('fullNameAndAge',fullNameAndAge, [["Alice Smith", 25],
+    ["Bob Brown", 30]], [{ firstName: "Alice", lastName: "Smith", age: 25 },
+    { firstName: "Bob", lastName: "Brown", age: 30 }]),
   ];
 
   console.table(result);
