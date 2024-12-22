@@ -198,7 +198,8 @@ const extractName = extractInformaton('name');
 const extractNames = function (objects) { return objects.map(extractName) };
 
 // extract ages from [{ age: 25 }, { age: 30 }] => [25, 30]
-const extractAges = function (objects) { };
+const extractAge = extractInformaton('age');
+const extractAges = function (objects) { return objects.map(extractAge); }
 
 // extract the first letters of names from [{ name: "Alice" }, { name: "Bob" }] => ["A", "B"]
 const firstLettersOfNames = function (objects) { };
@@ -595,6 +596,7 @@ const testAll6 = function () {
     ['name', 'parameter', 'actual', 'expected', 'isPassed'],
     test('extractNames', extractNames,
       ["Alice", "Bob"], [{ name: "Alice" }, { name: "Bob" }]),
+    test('exextractAges',extractAges, [25, 30], [{ age: 25 }, { age: 30 }]),
   ];
 
   console.table(result);
