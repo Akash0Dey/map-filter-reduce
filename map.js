@@ -20,10 +20,22 @@ const isTrue = function (number) { return !(number === 0); }
 const truthValuesOf = function (numbers) { return numbers.map(isTrue) };
 
 // reverse strings of ["hello", "world"] => ["olleh", "dlrow"]
-const reversedStringsOf = function (strings) { };
+const concat = function (string1, string2) { return string2 + string1; }
+const reversedString = function (string) {
+  return [...string].reduce(concat, '');
+}
+
+const reversedStringsOf = function (strings) {
+  return strings.map(reversedString);
+}
 
 // double letters of ["cat", "dog", "bat"] => ["ccaat", "ddoog", "bbaatt"]
-const doubleLettersOf = function (strings) { };
+const doubleChar = function (char) { return char.repeat(2); }
+const doubleLetter = function (string) {
+  return [...string].map(doubleChar).join('');
+}
+
+const doubleLettersOf = function (strings) { return strings.map(doubleLetter); }
 
 // boolean negation of [true, false, true] => [false, true, false]
 const negatedBooleansOf = function (booleans) { };
@@ -405,4 +417,17 @@ const testAll1 = function () {
   console.table(result);
 }
 
+const testAll2 = function () {
+  const result = [
+    ['name', 'parameter', 'expected', 'actual', 'isPassed'],
+    testArray('revereversedStringsOf', reversedStringsOf, ["olleh", "dlrow"],
+      ["hello", "world"]),
+    testArray('doubleLettersOf', doubleLettersOf,
+      ["ccaatt", "ddoogg", "bbaatt"], ["cat", "dog", "bat"]),
+  ];
+
+  console.table(result);
+}
+
 testAll1();
+testAll2();
