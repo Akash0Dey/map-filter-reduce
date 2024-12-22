@@ -253,7 +253,7 @@ const isYougerThan = function (maxAge) {
     return age < maxAge;
   }
 }
-const isOlderThan = combine(complement,isYougerThan);
+const isOlderThan = combine(complement, isYougerThan);
 const isOlderThan18 = combine(isOlderThan(18), extractAge);
 
 const isAdult = function (objects) { return objects.map(isOlderThan18); }
@@ -261,11 +261,11 @@ const isAdult = function (objects) { return objects.map(isOlderThan18); }
 // create abbreviations from [{ city: "New York", country: "USA" }, { city: "Los Angeles", country: "USA" }] => ["NY, USA", "LA, USA"]
 const extractCity = extractInformaton('city');
 const extractCountry = extractInformaton('country');
-const initialOfPlace = function (city) {
-  return city.split(' ').map(firstLetter).join('');
+const initialOfPlace = function (place) {
+  return extractCity(place).split(' ').map(firstLetter).join('');
 }
 const abbreviation = function (place) {
-  return initialOfPlace(place) + ', ' + extractCity(place);
+  return initialOfPlace(place) + ', ' + extractCountry(place);
 }
 const abbreviations = function (objects) { return objects.map(abbreviation); }
 
@@ -667,10 +667,12 @@ const testAll7 = function () {
     test('fullNames', fullNames, ["Alice Smith", "Bob Brown"],
       [{ firstName: "Alice", lastName: "Smith" },
       { firstName: "Bob", lastName: "Brown" }]),
-    test('totalPrices', totalPrices, [20, 20], 
+    test('totalPrices', totalPrices, [20, 20],
       [{ price: 10, quantity: 2 }, { price: 5, quantity: 4 }]),
-    test('isAdult',isAdult, [false, true],
+    test('isAdult', isAdult, [false, true],
       [{ name: "Alice", age: 17 }, { name: "Bob", age: 22 }]),
+    test('abbreviations', abbreviations, ["NY, USA", "LA, USA"],
+      [{ city: "New York", country: "USA" }, { city: "Los Angeles", country: "USA" }]),
 
   ];
 
