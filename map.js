@@ -219,7 +219,8 @@ const area = function (rectangle) {
 const calculateAreas = function (rectangles) { return rectangles.map(area); }
 
 // extract boolean flags from [{ active: true }, { active: false }] => [true, false]
-const extractFlags = function (objects) { };
+const extractActive = extractInformaton('active');
+const extractFlags = function (objects) { return objects.map(extractActive); }
 
 // concatenate first and last names from [{ firstName: "Alice", lastName: "Smith" }, { firstName: "Bob", lastName: "Brown" }] => ["Alice Smith", "Bob Brown"]
 const fullNames = function (objects) { };
@@ -612,6 +613,8 @@ const testAll6 = function () {
       ["A", "B"], [{ name: "Alice" }, { name: "Bob" }]),
     test('calculateAreas', calculateAreas, [6, 20],
       [{ width: 2, height: 3 }, { width: 4, height: 5 }]),
+    test('extractFlags', extractFlags, [true, false],
+      [{ active: true }, { active: false }]),
   ];
 
   console.table(result);
