@@ -187,7 +187,15 @@ const wrapAString = function (string) { return '[' + string + ']'; }
 const wrappedStringsOf = function (strings) { return strings.map(wrapAString); }
 
 // extract names from [{ name: "Alice" }, { name: "Bob" }] => ["Alice", "Bob"]
-const extractNames = function (objects) { };
+const extractInformaton = function (attribute) {
+  return function (person) {
+    return person[attribute];
+  }
+}
+
+const extractName = extractInformaton('name');
+
+const extractNames = function (objects) { return objects.map(extractName) };
 
 // extract ages from [{ age: 25 }, { age: 30 }] => [25, 30]
 const extractAges = function (objects) { };
@@ -582,8 +590,19 @@ const testAll5 = function () {
   console.table(result);
 }
 
+const testAll6 = function () {
+  const result = [
+    ['name', 'parameter', 'actual', 'expected', 'isPassed'],
+    test('extractNames', extractNames,
+      ["Alice", "Bob"], [{ name: "Alice" }, { name: "Bob" }]),
+  ];
+
+  console.table(result);
+}
+
 // testAll1();
 // testAll2();
 // testAll3();
 // testAll4();
-testAll5();
+// testAll5();
+testAll6();
