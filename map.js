@@ -145,7 +145,16 @@ const range0To = function (end) { return range(0, end, 1); }
 const rangesOf = function (numbers) { return numbers.map(range0To); }
 
 // capitalize first letters of ["hello world", "goodbye moon"] => ["Hello World", "Goodbye Moon"]
-const capitalizedFirstLettersOf = function (strings) { };
+const capitalize = function (word) {
+  return word[0].toUpperCase() + word.slice(1).toLowerCase();
+}
+
+const capitalizeWords = function (string) {
+  return string.split(' ').map(capitalize).join(' ');
+}
+const capitalizedFirstLettersOf = function (strings) {
+  return strings.map(capitalizeWords);
+}
 
 // find word lengths in ["apple pie", "banana split"] => [[5, 3], [6, 5]]
 const wordLengthsOf = function (strings) { };
@@ -537,7 +546,18 @@ const testAll4 = function () {
   console.table(result);
 }
 
+const testAll5 = function () {
+  const result = [
+    ['name', 'parameter', 'actual', 'expected', 'isPassed'],
+    test('capitalizedFirstLetterOf', capitalizedFirstLettersOf, 
+      ["Hello World", "Goodbye Moon"], ["hello world", "goodbye moon"]),
+  ];
+
+  console.table(result);
+}
+
 // testAll1();
 // testAll2();
 // testAll3();
-testAll4();
+// testAll4();
+testAll5();
