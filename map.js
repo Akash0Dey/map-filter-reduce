@@ -38,7 +38,12 @@ const doubleLetter = function (string) {
 const doubleLettersOf = function (strings) { return strings.map(doubleLetter); }
 
 // boolean negation of [true, false, true] => [false, true, false]
-const negatedBooleansOf = function (booleans) { };
+const complement = function (func) {
+  return function (...args) { return !func(...args); }
+}
+
+const not = function (boolean) { return !boolean; }
+const negatedBooleansOf = function (booleans) { return booleans.map(not); };
 
 // character codes of ["a", "b", "c"] => [97, 98, 99]
 // Use the `charCodeAt` method on each string
@@ -424,6 +429,8 @@ const testAll2 = function () {
       ["hello", "world"]),
     testArray('doubleLettersOf', doubleLettersOf,
       ["ccaatt", "ddoogg", "bbaatt"], ["cat", "dog", "bat"]),
+    testArray('negatedBooleansOf', negatedBooleansOf, [true, false, true],
+      [false, true, false]), 
   ];
 
   console.table(result);
