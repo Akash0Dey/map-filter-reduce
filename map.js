@@ -168,7 +168,19 @@ const flatten = function (array) { return array.flat(Infinity); }
 const flattenedArraysOf = function (arrays) { return arrays.map(flatten); }
 
 // sort letters in ["cat", "bat", "rat"] alphabetically => ["act", "abt", "art"]
-const sortedLettersOf = function (strings) { };
+const alphabeticallyOrder = function (alphabet) {
+  return 'abcdefghijklmnopqrstuvwxyz'.indexOf(alphabet.toLowerCase());
+}
+
+const alphabeticallySort = function (string) {
+  return [...string].sort(function (a, b) {
+    return alphabeticallyOrder(a) - alphabeticallyOrder(b);
+  }).join('');
+}
+
+const sortedLettersOf = function (strings) {
+  return strings.map(alphabeticallySort);
+}
 
 // wrap strings in brackets ["apple", "banana"] => ["[apple]", "[banana]"]
 const wrappedStringsOf = function (strings) { };
@@ -560,6 +572,8 @@ const testAll5 = function () {
       [[5, 3], [6, 5]], ["apple pie", "banana split"]),
     test('flattenedArraysOf',flattenedArraysOf, [[1, 2, 3], [4, 5, 6]],
       [[1, [2, 3]], [4, [5, 6]]]),
+    test('sortedLettersOf',sortedLettersOf, ["act", "abt", "art"],
+      ["cat", "bat", "rat"]),
   ];
 
   console.table(result);
