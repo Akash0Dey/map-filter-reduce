@@ -130,7 +130,19 @@ const unique = function (string) { return [...string].reduce(addUnique, ''); }
 const uniqueCharactersOf = function (strings) { return strings.map(unique); }
 
 // generate ranges from [3, 5, 2] => [[0, 1, 2], [0, 1, 2, 3, 4], [0, 1]]
-const rangesOf = function (numbers) { };
+const range = function (start, end, step) {
+  const numbers = [];
+
+  for (let number = start; number < end; number += step) {
+    numbers.push(number);
+  }
+
+  return numbers;
+}
+
+const range0To = function (end) { return range(0, end, 1); }
+
+const rangesOf = function (numbers) { return numbers.map(range0To); }
 
 // capitalize first letters of ["hello world", "goodbye moon"] => ["Hello World", "Goodbye Moon"]
 const capitalizedFirstLettersOf = function (strings) { };
@@ -457,7 +469,7 @@ const test = function (name, func, expected, ...args) {
 
 const testAll1 = function () {
   const result = [
-    ['name', 'parameter', 'expected', 'actual', 'isPassed'],
+    ['name', 'parameter', 'actual', 'expected', 'isPassed'],
     test('squaresOf', squaresOf, [1, 4, 9], [1, 2, 3]),
     test('lengthsOf', lengthsOf, [5, 6, 4], ["apple", "banana", "kiwi"]),
     test('upuppercaseOf', uppercaseOf, ["HELLO", "WORLD"],
@@ -472,7 +484,7 @@ const testAll1 = function () {
 
 const testAll2 = function () {
   const result = [
-    ['name', 'parameter', 'expected', 'actual', 'isPassed'],
+    ['name', 'parameter', 'actual', 'expected', 'isPassed'],
     test('revereversedStringsOf', reversedStringsOf, ["olleh", "dlrow"],
       ["hello", "world"]),
     test('doubleLettersOf', doubleLettersOf,
@@ -489,7 +501,7 @@ const testAll2 = function () {
 
 const testAll3 = function () {
   const result = [
-    ['name', 'parameter', 'expected', 'actual', 'isPassed'],
+    ['name', 'parameter', 'actual', 'expected', 'isPassed'],
     test('splitWordsOf', splitWordsOf, [["hello", "world"],
     ["goodbye", "moon"]], ["hello world", "goodbye moon"]),
     test('joinedArraysOf', joinedArraysOf, ["ab", "cd"],
@@ -507,7 +519,7 @@ const testAll3 = function () {
 
 const testAll4 = function () {
   const result = [
-    ['name', 'parameter', 'expected', 'actual', 'isPassed'],
+    ['name', 'parameter', 'actual', 'expected', 'isPassed'],
     test('withoutVowelsOf', withoutVowelsOf, ["ppl", "bnn", "grp"],
       ["apple", "banana", "grape"]),
     test('cucumulativeSumsOf', cumulativeSumsOf, [[1, 3, 6], [4, 9, 15]],
@@ -516,6 +528,10 @@ const testAll4 = function () {
       ["hello world", "goodbye moon"]),
     test('uniqueCharactersOf', uniqueCharactersOf, ["aple", "ban", "grape"],
       ["apple", "banana", "grape"]),
+    test('uniqueCharactersOf', uniqueCharactersOf, ["aple", "ban", "grape"],
+      ["apple", "banana", "grape"]),
+    test('rangesOf', rangesOf, [[0, 1], [0, 1, 2, 3], [0]],
+      [2, 4, 1]),
   ];
 
   console.table(result);
