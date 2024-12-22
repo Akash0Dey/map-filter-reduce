@@ -113,11 +113,21 @@ const cumulativeSumsOf = function (arrays) { return arrays.map(runningTotal); }
 const reverseWords = function (words) {
   return words.split(' ').map(reversedString).join(' ');
 }
+
 const reversedWordsOf = function (strings) { return strings.map(reverseWords); }
 
-// extract unique characters from ["apple", "banana", "grape"] => ["apl", "ban", "gra"]
+// extract unique characters from ["apple", "banana", "grape"] => ["aple", "ban", "grape"]
 // Maintain the order of their first appearance in each string
-const uniqueCharactersOf = function (strings) { };
+const addUnique = function (uniqueCharacters, alphabet) {
+  if (!uniqueCharacters.includes(alphabet)) {
+    uniqueCharacters += alphabet;
+  }
+
+  return uniqueCharacters;
+}
+
+const unique = function (string) { return [...string].reduce(addUnique, ''); }
+const uniqueCharactersOf = function (strings) { return strings.map(unique); }
 
 // generate ranges from [3, 5, 2] => [[0, 1, 2], [0, 1, 2, 3, 4], [0, 1]]
 const rangesOf = function (numbers) { };
@@ -486,9 +496,9 @@ const testAll3 = function () {
       [["a", "b"], ["c", "d"]]),
     test('repeatedStringsOf', repeatedStringsOf, ["hihi", "byebye"],
       ["hi", "bye"]),
-    test('countVowelsOf',countVowelsOf, [2, 3, 2],
+    test('countVowelsOf', countVowelsOf, [2, 3, 2],
       ["apple", "banana", "grape"]),
-    test('reversedArraysOf',reversedArraysOf, [[3, 2, 1], [6, 5, 4]],
+    test('reversedArraysOf', reversedArraysOf, [[3, 2, 1], [6, 5, 4]],
       [[1, 2, 3], [4, 5, 6]]),
   ];
 
@@ -500,10 +510,12 @@ const testAll4 = function () {
     ['name', 'parameter', 'expected', 'actual', 'isPassed'],
     test('withoutVowelsOf', withoutVowelsOf, ["ppl", "bnn", "grp"],
       ["apple", "banana", "grape"]),
-    test('cucumulativeSumsOf',cumulativeSumsOf, [[1, 3, 6], [4, 9, 15]],
+    test('cucumulativeSumsOf', cumulativeSumsOf, [[1, 3, 6], [4, 9, 15]],
       [[1, 2, 3], [4, 5, 6]]),
-    test('reversedWordsOf',reversedWordsOf, ["olleh dlrow", "eybdoog noom"],
+    test('reversedWordsOf', reversedWordsOf, ["olleh dlrow", "eybdoog noom"],
       ["hello world", "goodbye moon"]),
+    test('uniqueCharactersOf', uniqueCharactersOf, ["aple", "ban", "grape"],
+      ["apple", "banana", "grape"]),
   ];
 
   console.table(result);
