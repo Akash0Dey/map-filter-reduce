@@ -279,7 +279,7 @@ const mathScores = function (objects) { return objects.map(extractMathScore); }
 const extractX = extractInformaton('x');
 const extractY = extractInformaton('y');
 const cordinate = function (object) {
-  return extractX(object), [extractY(object)]
+  return [extractX(object), extractY(object)]
 }
 const extractCoordinates = function (objects) { return objects.map(cordinate); }
 
@@ -683,10 +683,21 @@ const testAll7 = function () {
   console.table(result);
 }
 
+const testAll8 = function () {
+  const result = [
+    ['name', 'parameter', 'actual', 'expected', 'isPassed'],
+    test('extractCoordinates', extractCoordinates, [[1, 2], [3, 4]],
+      [{ x: 1, y: 2 }, { x: 3, y: 4 }]),
+  ];
+
+  console.table(result);
+}
+
 // testAll1();
 // testAll2();
 // testAll3();
 // testAll4();
 // testAll5();
 // testAll6();
-testAll7();
+// testAll7();
+testAll8();
