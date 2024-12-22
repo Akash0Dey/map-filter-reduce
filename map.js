@@ -202,7 +202,12 @@ const extractAge = extractInformaton('age');
 const extractAges = function (objects) { return objects.map(extractAge); }
 
 // extract the first letters of names from [{ name: "Alice" }, { name: "Bob" }] => ["A", "B"]
-const firstLettersOfNames = function (objects) { };
+const firstLetterOfName = function (person) {
+  return firstLetter(extractName(person));
+}
+const firstLettersOfNames = function (objects) {
+  return objects.map(firstLetterOfName);
+}
 
 // calculate areas from [{ width: 2, height: 3 }, { width: 4, height: 5 }] => [6, 20]
 const calculateAreas = function (rectangles) { };
@@ -580,11 +585,11 @@ const testAll5 = function () {
       ["Hello World", "Goodbye Moon"], ["hello world", "goodbye moon"]),
     test('wordLengthsOf', wordLengthsOf,
       [[5, 3], [6, 5]], ["apple pie", "banana split"]),
-    test('flattenedArraysOf',flattenedArraysOf, [[1, 2, 3], [4, 5, 6]],
+    test('flattenedArraysOf', flattenedArraysOf, [[1, 2, 3], [4, 5, 6]],
       [[1, [2, 3]], [4, [5, 6]]]),
-    test('sortedLettersOf',sortedLettersOf, ["act", "abt", "art"],
+    test('sortedLettersOf', sortedLettersOf, ["act", "abt", "art"],
       ["cat", "bat", "rat"]),
-    test('wrappedStringsOf',wrappedStringsOf, ["[apple]", "[banana]"],
+    test('wrappedStringsOf', wrappedStringsOf, ["[apple]", "[banana]"],
       ["apple", "banana"]),
   ];
 
@@ -596,7 +601,9 @@ const testAll6 = function () {
     ['name', 'parameter', 'actual', 'expected', 'isPassed'],
     test('extractNames', extractNames,
       ["Alice", "Bob"], [{ name: "Alice" }, { name: "Bob" }]),
-    test('exextractAges',extractAges, [25, 30], [{ age: 25 }, { age: 30 }]),
+    test('extractAges', extractAges, [25, 30], [{ age: 25 }, { age: 30 }]),
+    test('firstfirstLettersOfNames',firstLettersOfNames,
+      ["A", "B"], [{ name: "Alice" }, { name: "Bob" }]),
   ];
 
   console.table(result);
