@@ -76,7 +76,15 @@ const repeat = function (times) {
 const repeatedStringsOf = function (strings) { return strings.map(repeat(2)) };
 
 // count vowels in ["apple", "banana", "grape"] => [2, 3, 2]
-const countVowelsOf = function (strings) { };
+const isVowel = function (char) { return 'aeiouAEIOU'.includes(char); }
+
+const countVowel = function (string) {
+  return [...string].reduce(function (countOfVowel, char) {
+    return countOfVowel + (isVowel(char) ? 1 : 0);
+  }, 0)
+}
+
+const countVowelsOf = function (strings) { return strings.map(countVowel); }
 
 // reverse arrays of [[1, 2, 3], [4, 5, 6]] => [[3, 2, 1], [6, 5, 4]]
 const reversedArraysOf = function (arrays) { };
@@ -456,12 +464,14 @@ const testAll2 = function () {
 const testAll3 = function () {
   const result = [
     ['name', 'parameter', 'expected', 'actual', 'isPassed'],
-    testArray('splitWordsOf', splitWordsOf, [["hello", "world"], 
-      ["goodbye", "moon"]], ["hello world", "goodbye moon"]), 
-    testArray('joinedArraysOf', joinedArraysOf, ["ab", "cd"], 
-      [["a", "b"], ["c", "d"]]), 
-    testArray('repearepeatedStringsOf',repeatedStringsOf, ["hihi", "byebye"],
-      ["hi", "bye"]), 
+    testArray('splitWordsOf', splitWordsOf, [["hello", "world"],
+    ["goodbye", "moon"]], ["hello world", "goodbye moon"]),
+    testArray('joinedArraysOf', joinedArraysOf, ["ab", "cd"],
+      [["a", "b"], ["c", "d"]]),
+    testArray('repeatedStringsOf', repeatedStringsOf, ["hihi", "byebye"],
+      ["hi", "bye"]),
+    testArray('countVowelsOf',countVowelsOf, [2, 3, 2],
+      ["apple", "banana", "grape"]),
   ];
 
   console.table(result);
