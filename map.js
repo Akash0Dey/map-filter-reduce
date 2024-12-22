@@ -223,24 +223,65 @@ const extractActive = extractInformaton('active');
 const extractFlags = function (objects) { return objects.map(extractActive); }
 
 // concatenate first and last names from [{ firstName: "Alice", lastName: "Smith" }, { firstName: "Bob", lastName: "Brown" }] => ["Alice Smith", "Bob Brown"]
-const fullNames = function (objects) { };
+const extractFirstName = extractInformaton('firstName');
+const extractLastName = extractInformaton('lastName');
+const names = function (person) {
+  return extractFirstName(person) + ' ' + extractLastName(person);
+}
+
+const fullNames = function (objects) { return objects.map(names); };
 
 // calculate total prices from [{ price: 10, quantity: 2 }, { price: 5, quantity: 4 }] => [20, 20]
 // (price * quantity)
-const totalPrices = function (objects) { };
+const extractPrice = extractInformaton('price');
+const extractQuantity = extractInformaton('quantity');
+const totalPrice = function (object) {
+  return extractPrice(object) * extractQuantity(object);
+}
+const totalPrices = function (objects) { return objects.map(totalPrice); }
 
 // determine if a person is an adult from [{ name: "Alice", age: 17 }, { name: "Bob", age: 22 }] => [false, true]
 // (age >= 18)
-const isAdult = function (objects) { };
+const combine = function (func1, func2) {
+  return function (...args) {
+    return func1(func2(...args));
+  }
+}
+
+const isYougerThan = function (maxAge) {
+  return function (age) {
+    return age < maxAge;
+  }
+}
+const isOlderThan = combine(not, isYougerThan);
+const isOlderThan18 = isOlderThan(18)
+
+const isAdult = function (objects) { return objects.map(isOlderThan18); }
 
 // create abbreviations from [{ city: "New York", country: "USA" }, { city: "Los Angeles", country: "USA" }] => ["NY, USA", "LA, USA"]
-const abbreviations = function (objects) { };
+const extractCity = extractInformaton('city');
+const extractCountry = extractInformaton('country');
+const initialOfPlace = function (city) {
+  return city.split(' ').map(firstLetter).join('');
+}
+const abbreviation = function (place) {
+  return initialOfPlace(place) + ', ' + extractCity(place);
+}
+const abbreviations = function (objects) { return objects.map(abbreviation); }
 
 // extract scores for math tests from [{ name: "Alice", scores: { math: 90, english: 85 } }, { name: "Bob", scores: { math: 80, english: 75 } }] => [90, 80]
-const mathScores = function (objects) { };
+const extractScore = extractInformaton('scores');
+const extractMath = extractInformaton('math');
+const extractMathScore = combine(extractMath, extractScore);
+const mathScores = function (objects) { return objects.map(extractMathScore); }
 
 // extract coordinates from [{ x: 1, y: 2 }, { x: 3, y: 4 }] => [[1, 2], [3, 4]]
-const extractCoordinates = function (objects) { };
+const extractX = extractInformaton('x');
+const extractY = extractInformaton('y');
+const cordinate = function (object) {
+  return extractX(object), [extractY(object)]
+}
+const extractCoordinates = function (objects) { return objects.map(cordinate); }
 
 // extract full name and age from [{ firstName: "Alice", lastName: "Smith", age: 25 }, { firstName: "Bob", lastName: "Brown", age: 30 }] => [["Alice Smith", 25], ["Bob Brown", 30]]
 const fullNameAndAge = function (objects) { };
@@ -620,9 +661,22 @@ const testAll6 = function () {
   console.table(result);
 }
 
+const testAll7 = function () {
+  const result = [
+    ['name', 'parameter', 'actual', 'expected', 'isPassed'],
+    test('fullNames', fullNames, ["Alice Smith", "Bob Brown"],
+      [{ firstName: "Alice", lastName: "Smith" },
+      { firstName: "Bob", lastName: "Brown" }]),
+
+  ];
+
+  console.table(result);
+}
+
 // testAll1();
 // testAll2();
 // testAll3();
 // testAll4();
 // testAll5();
-testAll6();
+// testAll6();
+testAll7();
