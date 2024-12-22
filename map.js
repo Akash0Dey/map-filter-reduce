@@ -91,7 +91,10 @@ const reverseArray = function (array) { return array.reverse(); }
 const reversedArraysOf = function (arrays) { return arrays.map(reverseArray); }
 
 // remove vowels from ["apple", "banana", "grape"] => ["ppl", "bnn", "grp"]
-const withoutVowelsOf = function (strings) { };
+const withoutVowel = function (string) {
+  return [...string].filter(complement(isVowel)).join('');
+}
+const withoutVowelsOf = function (strings) { return strings.map(withoutVowel); }
 
 // cumulative sums of [[1, 2, 3], [4, 5, 6]] => [[1, 3, 6], [4, 9, 15]]
 // Example: cumulative sum of [1, 2, 3] is [1, 1+2, 1+2+3]
@@ -423,7 +426,7 @@ function getMark(isPassed) {
   return isPassed ? '✅' : '❌';
 }
 
-const testArray = function (name, func, expected, ...args) {
+const test = function (name, func, expected, ...args) {
   const actual = func(...args);
   const isPassed = expected.join() === actual.join();
 
@@ -433,13 +436,13 @@ const testArray = function (name, func, expected, ...args) {
 const testAll1 = function () {
   const result = [
     ['name', 'parameter', 'expected', 'actual', 'isPassed'],
-    testArray('squaresOf', squaresOf, [1, 4, 9], [1, 2, 3]),
-    testArray('lengthsOf', lengthsOf, [5, 6, 4], ["apple", "banana", "kiwi"]),
-    testArray('upuppercaseOf', uppercaseOf, ["HELLO", "WORLD"],
+    test('squaresOf', squaresOf, [1, 4, 9], [1, 2, 3]),
+    test('lengthsOf', lengthsOf, [5, 6, 4], ["apple", "banana", "kiwi"]),
+    test('upuppercaseOf', uppercaseOf, ["HELLO", "WORLD"],
       ["hello", "world"]),
-    testArray('firstfirstCharactersOf', firstCharactersOf, ['a', 'b', 'k'],
+    test('firstfirstCharactersOf', firstCharactersOf, ['a', 'b', 'k'],
       ["apple", "banana", "kiwi"]),
-    testArray('truthValuesOf', truthValuesOf, [false, true, true], [0, 1, 2]),
+    test('truthValuesOf', truthValuesOf, [false, true, true], [0, 1, 2]),
   ];
 
   console.table(result);
@@ -448,14 +451,14 @@ const testAll1 = function () {
 const testAll2 = function () {
   const result = [
     ['name', 'parameter', 'expected', 'actual', 'isPassed'],
-    testArray('revereversedStringsOf', reversedStringsOf, ["olleh", "dlrow"],
+    test('revereversedStringsOf', reversedStringsOf, ["olleh", "dlrow"],
       ["hello", "world"]),
-    testArray('doubleLettersOf', doubleLettersOf,
+    test('doubleLettersOf', doubleLettersOf,
       ["ccaatt", "ddoogg", "bbaatt"], ["cat", "dog", "bat"]),
-    testArray('negatedBooleansOf', negatedBooleansOf, [true, false, true],
+    test('negatedBooleansOf', negatedBooleansOf, [true, false, true],
       [false, true, false]),
-    testArray('charCodesOf', charCodesOf, [97, 98, 99], ['a', 'b', 'c']),
-    testArray('domainNamesOf', domainNamesOf, ["gmail.com", "yahoo.com"],
+    test('charCodesOf', charCodesOf, [97, 98, 99], ['a', 'b', 'c']),
+    test('domainNamesOf', domainNamesOf, ["gmail.com", "yahoo.com"],
       ["user1@gmail.com", "admin@yahoo.com"])
   ];
 
@@ -465,21 +468,32 @@ const testAll2 = function () {
 const testAll3 = function () {
   const result = [
     ['name', 'parameter', 'expected', 'actual', 'isPassed'],
-    testArray('splitWordsOf', splitWordsOf, [["hello", "world"],
+    test('splitWordsOf', splitWordsOf, [["hello", "world"],
     ["goodbye", "moon"]], ["hello world", "goodbye moon"]),
-    testArray('joinedArraysOf', joinedArraysOf, ["ab", "cd"],
+    test('joinedArraysOf', joinedArraysOf, ["ab", "cd"],
       [["a", "b"], ["c", "d"]]),
-    testArray('repeatedStringsOf', repeatedStringsOf, ["hihi", "byebye"],
+    test('repeatedStringsOf', repeatedStringsOf, ["hihi", "byebye"],
       ["hi", "bye"]),
-    testArray('countVowelsOf',countVowelsOf, [2, 3, 2],
+    test('countVowelsOf',countVowelsOf, [2, 3, 2],
       ["apple", "banana", "grape"]),
-    testArray('reversedArraysOf',reversedArraysOf, [[3, 2, 1], [6, 5, 4]],
+    test('reversedArraysOf',reversedArraysOf, [[3, 2, 1], [6, 5, 4]],
       [[1, 2, 3], [4, 5, 6]]),
   ];
 
   console.table(result);
 }
 
-testAll1();
-testAll2();
-testAll3();
+const testAll4 = function () {
+  const result = [
+    ['name', 'parameter', 'expected', 'actual', 'isPassed'],
+    test('withoutVowelsOf', withoutVowelsOf, ["ppl", "bnn", "grp"],
+      ["apple", "banana", "grape"]),
+  ];
+
+  console.table(result);
+}
+
+// testAll1();
+// testAll2();
+// testAll3();
+testAll4();
