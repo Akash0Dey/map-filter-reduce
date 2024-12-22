@@ -38,19 +38,22 @@ const doubleLetter = function (string) {
 const doubleLettersOf = function (strings) { return strings.map(doubleLetter); }
 
 // boolean negation of [true, false, true] => [false, true, false]
+const not = function (boolean) { return !boolean; }
+
 const complement = function (func) {
-  return function (...args) { return !func(...args); }
+  return function (...args) { return not(func(...args)); }
 }
 
-const not = function (boolean) { return !boolean; }
 const negatedBooleansOf = function (booleans) { return booleans.map(not); };
 
 // character codes of ["a", "b", "c"] => [97, 98, 99]
 // Use the `charCodeAt` method on each string
-const charCodesOf = function (strings) { };
+const charCode = function (char) { return char.charCodeAt(0) }
+const charCodesOf = function (strings) { return strings.map(charCode); }
 
 // extract domain names from ["user1@gmail.com", "admin@yahoo.com"] => ["gmail.com", "yahoo.com"]
-const domainNamesOf = function (emails) { };
+const domain = function (email) { return email.split('@')[1]; }
+const domainNamesOf = function (emails) { return emails.map(domain); }
 
 // split words in ["hello world", "goodbye moon"] => [["hello", "world"], ["goodbye", "moon"]]
 const splitWordsOf = function (strings) { };
@@ -430,7 +433,10 @@ const testAll2 = function () {
     testArray('doubleLettersOf', doubleLettersOf,
       ["ccaatt", "ddoogg", "bbaatt"], ["cat", "dog", "bat"]),
     testArray('negatedBooleansOf', negatedBooleansOf, [true, false, true],
-      [false, true, false]), 
+      [false, true, false]),
+    testArray('charCodesOf', charCodesOf, [97, 98, 99], ['a', 'b', 'c']),
+    testArray('domainNamesOf', domainNamesOf, ["gmail.com", "yahoo.com"],
+      ["user1@gmail.com", "admin@yahoo.com"])
   ];
 
   console.table(result);
