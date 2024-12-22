@@ -183,7 +183,8 @@ const sortedLettersOf = function (strings) {
 }
 
 // wrap strings in brackets ["apple", "banana"] => ["[apple]", "[banana]"]
-const wrappedStringsOf = function (strings) { };
+const wrapAString = function (string) { return '[' + string + ']'; }
+const wrappedStringsOf = function (strings) { return strings.map(wrapAString); }
 
 // extract names from [{ name: "Alice" }, { name: "Bob" }] => ["Alice", "Bob"]
 const extractNames = function (objects) { };
@@ -574,6 +575,8 @@ const testAll5 = function () {
       [[1, [2, 3]], [4, [5, 6]]]),
     test('sortedLettersOf',sortedLettersOf, ["act", "abt", "art"],
       ["cat", "bat", "rat"]),
+    test('wrappedStringsOf',wrappedStringsOf, ["[apple]", "[banana]"],
+      ["apple", "banana"]),
   ];
 
   console.table(result);
