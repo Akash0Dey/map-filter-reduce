@@ -157,7 +157,11 @@ const capitalizedFirstLettersOf = function (strings) {
 }
 
 // find word lengths in ["apple pie", "banana split"] => [[5, 3], [6, 5]]
-const wordLengthsOf = function (strings) { };
+const wordsLength = function (words) {
+  return lengthsOf(words.split(' '));
+}
+
+const wordLengthsOf = function (strings) { return strings.map(wordsLength); }
 
 // flatten nested arrays of [[1, [2, 3]], [4, [5, 6]]] => [[1, 2, 3], [4, 5, 6]]
 const flattenedArraysOf = function (arrays) { };
@@ -551,6 +555,8 @@ const testAll5 = function () {
     ['name', 'parameter', 'actual', 'expected', 'isPassed'],
     test('capitalizedFirstLetterOf', capitalizedFirstLettersOf, 
       ["Hello World", "Goodbye Moon"], ["hello world", "goodbye moon"]),
+    test('wordLengthsOf', wordLengthsOf, 
+      [[5, 3], [6, 5]], ["apple pie", "banana split"]),
   ];
 
   console.table(result);
