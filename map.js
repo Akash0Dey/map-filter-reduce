@@ -301,7 +301,10 @@ const score = compound(extractMathScore, extractEnglishScore);
 const extractScores = function (objects) { return objects.map(score); }
 
 // extract key-value pairs from [{ key: "a", value: 1 }, { key: "b", value: 2 }] => [["a", 1], ["b", 2]]
-const keyValuePairs = function (objects) { };
+const extractKey = extractInformaton('key');
+const extractValue = extractInformaton('value');
+const keyValuePair = compound(extractKey, extractValue);
+const keyValuePairs = function (objects) { return objects.map(keyValuePair); }
 
 // split full names into first and last names from [{ name: "Alice Smith" }, { name: "Bob Brown" }] => [["Alice", "Smith"], ["Bob", "Brown"]]
 const splitFullNames = function (objects) { };
@@ -704,7 +707,9 @@ const testAll8 = function () {
     { firstName: "Bob", lastName: "Brown", age: 30 }]),
     test('extractScores', extractScores, [[90,85], [80, 75]],
       [{ name: "Alice", scores: { math: 90, english: 85 } },
-      { name: "Bob", scores: { math: 80, english: 75 } }])
+      { name: "Bob", scores: { math: 80, english: 75 } }]),
+    test('keyValuePairs', keyValuePairs, [["a", 1], ["b", 2]],
+      [{ key: "a", value: 1 }, { key: "b", value: 2 }])
   ];
 
   console.table(result);
